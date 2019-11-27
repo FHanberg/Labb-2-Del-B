@@ -30,6 +30,7 @@ public class CarController {
         CarController cc = new CarController();
 
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95(0, 100));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -47,7 +48,8 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(x, y);
+                //TODO: Make so it doesn't overwrite the image
+                frame.drawPanel.updatePosAndImg(x, y, car);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
                 if(collidingWithWall(car.getDirection(), x, y)){
@@ -59,7 +61,7 @@ public class CarController {
 
     private boolean collidingWithWall(double rotation, double x, double y){
         if(rotation < 90 || rotation > 270){
-            if(x > frame.drawPanel.getWidth()){
+            if(x + DrawPanel.CAR_WIDTH > frame.drawPanel.getWidth()){
                 return true;
             }
         }
@@ -74,7 +76,7 @@ public class CarController {
             }
         }
         if(rotation > 180){
-            if(y > frame.drawPanel.getHeight()){
+            if(y + DrawPanel.CAR_HEIGHT > frame.drawPanel.getHeight()){
                 return true;
             }
         }

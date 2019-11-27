@@ -17,6 +17,12 @@ public abstract class Car extends MotorVehicle implements Transportable{
         this.nrDoors = nrDoors;
     }
 
+    public Car(int nrDoors, double enginePower, Color color, String modelName, Size size, double xPos, double yPos){
+        super(enginePower, color, modelName, size, xPos, yPos);
+        this.nrDoors = nrDoors;
+    }
+
+
     public int getNrDoors() {
         return nrDoors;
     }

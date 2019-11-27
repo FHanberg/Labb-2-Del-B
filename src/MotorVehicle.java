@@ -23,6 +23,18 @@ public abstract class MotorVehicle implements Movable, Engine {
         stopEngine();
     }
 
+    public MotorVehicle(double enginePower, Color color, String modelName, Size size, double xPos, double yPos){
+        this.xPos = xPos;
+        this.yPos = yPos;
+
+        this.color = color;
+        this.enginePower = enginePower;
+        this.modelName = modelName;
+        this.size = size;
+
+        stopEngine();
+    }
+
 
     public double getEnginePower() {
         return enginePower;

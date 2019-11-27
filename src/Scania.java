@@ -15,6 +15,10 @@ public class Scania extends Car implements Flatbed{
         stopEngine();
     }
 
+    public Scania(double xPos, double yPos){
+        super(2, 350, Color.white, "LBS141", Size.BIG, xPos, yPos);
+        stopEngine();
+    }
     public void turboOn(){
         turboOn = true;
     }

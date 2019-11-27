@@ -15,6 +15,10 @@ public class Volvo240 extends Car {
         super(4, 100, Color.black, "Volvo240", Size.MEDIUM);
     }
 
+    public Volvo240(double xPos, double yPos){
+        super(4, 100, Color.black, "Volvo240", Size.MEDIUM, xPos, yPos);
+    }
+
     /**
      * Determines acceleration factor based on trimFactor
      * @return acc factor
