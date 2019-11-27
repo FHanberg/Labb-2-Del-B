@@ -50,16 +50,59 @@ public class CarController {
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
+                if(collidingWithWall(car.getDirection(), x, y)){
+                    turnAroundProcedure(car);
+                }
             }
         }
+    }
+
+    private boolean collidingWithWall(double rotation, double x, double y){
+        if(rotation < 90 || rotation > 270){
+            if(x > frame.drawPanel.getWidth()){
+                return true;
+            }
+        }
+        if(rotation < 180){
+            if(y < 0){
+                return true;
+            }
+        }
+        if(rotation > 90 && rotation < 270){
+            if(x < 0){
+                return true;
+            }
+        }
+        if(rotation > 180){
+            if(y > frame.drawPanel.getHeight()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void turnAroundProcedure(Car car){
+        car.stopEngine();
+
+        for (int i = 0; i <4 ; i++) {
+            car.turnLeft();
+        }
+        car.startEngine();
     }
 
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Car car : cars) {
             car.gas(gas);
+        }
+    }
+
+    void brake(int amount){
+        double brake = amount / 100.0;
+        for(Car car : cars){
+            car.brake(brake);
         }
     }
 }
