@@ -31,6 +31,7 @@ public class CarController {
 
         cc.cars.add(new Volvo240());
         cc.cars.add(new Saab95(0, 100));
+        cc.cars.add(new Scania(0, 200));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -44,19 +45,22 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
+            frame.drawPanel.repaint();
             for (Car car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
                 //TODO: Make so it doesn't overwrite the image
-                frame.drawPanel.updatePosAndImg(x, y, car);
+                frame.drawPanel.updatePosAndImg(x, y, car.getClass().toString());
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
                 if(collidingWithWall(car.getDirection(), x, y)){
                     turnAroundProcedure(car);
                 }
             }
+
         }
+
     }
 
     private boolean collidingWithWall(double rotation, double x, double y){
