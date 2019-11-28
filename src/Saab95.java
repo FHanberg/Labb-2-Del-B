@@ -3,7 +3,7 @@ import java.awt.*;
 /**
  * En Saab95
  */
-public class Saab95 extends Car {
+public class Saab95 extends Car implements ITurbo{
 
     private boolean turboOn;
 
@@ -35,7 +35,8 @@ public class Saab95 extends Car {
      */
     protected double speedFactor(){
         double turbo = 1;
-        if(turboOn) turbo = 1.3;
+        if(turboOn)
+            turbo = 1.3;
         return enginePower * 0.01 * turbo;
     }
 

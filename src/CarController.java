@@ -111,4 +111,49 @@ public class CarController {
             car.brake(brake);
         }
     }
+
+    void turboOn(){
+        for(Car car : cars){
+            if(car instanceof ITurbo){
+                ((ITurbo) car).setTurboOn();
+            }
+        }
+    }
+
+    void turboOff(){
+        for(Car car : cars){
+            if(car instanceof ITurbo){
+                ((ITurbo) car).setTurboOff();
+            }
+        }
+    }
+
+    void liftBeds(){
+        for(Car car : cars){
+            if(car instanceof Flatbed){
+                ((Flatbed) car).raiseBed();
+            }
+        }
+    }
+
+    void lowerBeds(){
+        for (Car car : cars){
+            if(car instanceof Flatbed){
+                ((Flatbed) car).lowerBed();
+            }
+        }
+    }
+
+    void startCars(){
+        for(Car car : cars){
+            car.startEngine();
+        }
+    }
+
+    void stopCars(){
+        for(Car car : cars){
+            car.stopEngine();
+        }
+    }
+
 }
