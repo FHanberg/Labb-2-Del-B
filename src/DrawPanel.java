@@ -18,10 +18,8 @@ public class DrawPanel extends JPanel{
     private List<Point> positions;
     private List<String> imageDir;
 
-    // Just a single image, TODO: Generalize
-    Map<String, String> imageMap = new HashMap<>();
+    private Map<String, String> imageMap = new HashMap<>();
 
-    // TODO: Make this general for all cars
     void updatePosAndImg(int x, int y, String carClass){
         positions.add(new Point(x, y));
         imageDir.add(imageMap.get(carClass));
@@ -53,7 +51,6 @@ public class DrawPanel extends JPanel{
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
-    // TODO: Change to suit your needs.
 
     @Override
     protected void paintComponent(Graphics g) {

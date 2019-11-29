@@ -51,6 +51,7 @@ public class Scania extends Car implements Flatbed{
         }else if(degreesOnFlatbed >= 0){
             degreesOnFlatbed = 0;
         }
+        System.out.println("Current bed angle: " + getDegreesOnFlatbed());
     }
 
     /**
@@ -65,6 +66,7 @@ public class Scania extends Car implements Flatbed{
                 degreesOnFlatbed = maxAngle;
             }
         }
+        System.out.println("Current bed angle: " + getDegreesOnFlatbed());
     }
 
     public double getDegreesOnFlatbed() {

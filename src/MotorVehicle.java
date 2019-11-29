@@ -113,15 +113,14 @@ public abstract class MotorVehicle implements Movable, Engine {
     }
 
     /**
-     * Sets currentSpeed to > 0
+     * Ignites engine, allowing vehicle to move
      */
     public void startEngine(){
         engineOn = true;
-        currentSpeed = 0.1;
     }
 
     /**
-     * Sets speed to 0
+     * Kills engine and stops the vehicle
      */
     public void stopEngine(){
         engineOn = false;
