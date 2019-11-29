@@ -13,6 +13,7 @@ public abstract class MotorVehicle implements Movable, Engine {
     double xPos;
     double yPos;
     private final Size size;
+    private boolean engineOn = false;
 
     public MotorVehicle(double enginePower, Color color, String modelName, Size size){
         this.color = color;
@@ -105,14 +106,17 @@ public abstract class MotorVehicle implements Movable, Engine {
      * xPos and yPos is changed dependent on direction and speed
      */
     public void move() {
-        xPos += currentSpeed * Math.cos(Math.toRadians(direction));
-        yPos += currentSpeed * Math.sin(Math.toRadians(direction));
+        if(engineOn){
+            xPos += currentSpeed * Math.cos(Math.toRadians(direction));
+            yPos += currentSpeed * Math.sin(Math.toRadians(direction));
+        }
     }
 
     /**
      * Sets currentSpeed to > 0
      */
     public void startEngine(){
+        engineOn = true;
         currentSpeed = 0.1;
     }
 
@@ -120,6 +124,7 @@ public abstract class MotorVehicle implements Movable, Engine {
      * Sets speed to 0
      */
     public void stopEngine(){
+        engineOn = false;
         currentSpeed = 0;
     }
 

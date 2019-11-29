@@ -1,4 +1,5 @@
 /**
+ * Giant ~ Ferries and boats
  * Big ~ Tractors and trucks
  * Medium ~ regular cars
  * Small ~ smart cars
