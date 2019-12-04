@@ -106,10 +106,8 @@ public abstract class MotorVehicle implements Movable, Engine {
      * xPos and yPos is changed dependent on direction and speed
      */
     public void move() {
-        if(engineOn){
-            xPos += currentSpeed * Math.cos(Math.toRadians(direction));
-            yPos += currentSpeed * Math.sin(Math.toRadians(direction));
-        }
+        xPos += currentSpeed * Math.cos(Math.toRadians(direction));
+        yPos += currentSpeed * Math.sin(Math.toRadians(direction));
     }
 
     /**
@@ -148,14 +146,16 @@ public abstract class MotorVehicle implements Movable, Engine {
      * @param amount Value between 0 - 1, more makes for higher acceleration
      */
     public void gas(double amount){
-        if(amount > 1){
-            System.out.println("Gas amount is more than 1");
-            return;
-        }else if(amount < 0){
-            System.out.println("Gas is less than 0");
-            return;
+        if(engineOn) {
+            if (amount > 1) {
+                System.out.println("Gas amount is more than 1");
+                return;
+            } else if (amount < 0) {
+                System.out.println("Gas is less than 0");
+                return;
+            }
+            incrementSpeed(amount);
         }
-        incrementSpeed(amount);
     }
 
     /**
