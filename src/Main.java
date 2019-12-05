@@ -1,6 +1,6 @@
 import carcontroller.CarController;
-import carmodel.Car;
-import carview.CarView;
+import carview.CarViewFactory;
+import carview.ICarView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ public class Main {
 
     private final int delay = 50;
     private Timer timer = new Timer(delay, new TimerListener());
-    private CarView view;
+    private ICarView view;
 
     private static Main main;
 
@@ -20,7 +20,7 @@ public class Main {
         main = new Main();
         main.carController = new CarController();
         //main.view = new CarView("WWOO", main.carController);
-
+        main.view = CarViewFactory.createCarView("Car Simulator", main.carController);
         main.timer.start();
     }
 

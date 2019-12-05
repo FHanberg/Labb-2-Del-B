@@ -16,12 +16,12 @@ import java.awt.event.ActionListener;
  * each of it's components.
  **/
 
-public class CarView extends JFrame implements ICarView {
+class CarView extends JFrame implements ICarView {
     private static final int X = 800;
     private static final int Y = 800;
 
     // The controller member
-    //CarController carC;
+    CarController carC;
 
     public DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -43,8 +43,8 @@ public class CarView extends JFrame implements ICarView {
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName /*, CarController cc*/){
-        //this.carC = cc;
+    public CarView(String frameName , CarController cc){
+        this.carC = cc;
         initComponents(frameName);
     }
 
