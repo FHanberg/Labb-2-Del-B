@@ -22,7 +22,7 @@ public class CarController {
     private final int delay = 50;
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    //private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
@@ -31,6 +31,12 @@ public class CarController {
 
     //methods:
 
+    public void update(){
+
+    }
+
+
+    /*
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
@@ -45,29 +51,12 @@ public class CarController {
         // Start the timer
         cc.timer.start();
     }
+    */
+
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-
-            frame.drawPanel.repaint();
-            for (Car car : cars) {
-                car.move();
-                int x = (int) Math.round(car.getX());
-                int y = (int) Math.round(car.getY());
-                //TODO: Make so it doesn't overwrite the image
-                frame.drawPanel.updatePosAndImg(x, y, car.getClass().toString());
-                // repaint() calls the paintComponent method of the panel
-                if(collidingWithWall(car.getDirection(), x, y)){
-                    turnAroundProcedure(car);
-                }
-            }
-
-        }
-
-    }
 
     private boolean collidingWithWall(double rotation, double x, double y){
         if(rotation < 90 || rotation > 270){
