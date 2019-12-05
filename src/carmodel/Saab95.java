@@ -1,7 +1,9 @@
+package carmodel;
+
 import java.awt.*;
 
 /**
- * En Saab95
+ * En carmodel.Saab95
  */
 public class Saab95 extends Car implements ITurbo{
 
@@ -12,12 +14,12 @@ public class Saab95 extends Car implements ITurbo{
      * turns off turbo and the engine
      */
     public Saab95(){
-        super(2, 125, Color.red, "Saab95", Size.MEDIUM);
+        super(2, 125, Color.red, "carmodel.Saab95", Size.MEDIUM);
 	    turboOn = false;
     }
 
     public Saab95(double xPos, double yPos){
-        super(2, 125, Color.red, "Saab95", Size.MEDIUM, xPos, yPos);
+        super(2, 125, Color.red, "carmodel.Saab95", Size.MEDIUM, xPos, yPos);
         turboOn = false;
     }
     public void setTurboOn(){

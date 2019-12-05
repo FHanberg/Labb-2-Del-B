@@ -1,3 +1,9 @@
+package carcontroller;
+
+import carmodel.*;
+import carview.CarView;
+import carview.DrawPanel;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,21 +104,21 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Car car : cars) {
             car.gas(gas);
         }
     }
 
-    void brake(int amount){
+    public void brake(int amount){
         double brake = amount / 100.0;
         for(Car car : cars){
             car.brake(brake);
         }
     }
 
-    void turboOn(){
+    public void turboOn(){
         for(Car car : cars){
             if(car instanceof ITurbo){
                 ((ITurbo) car).setTurboOn();
@@ -120,7 +126,7 @@ public class CarController {
         }
     }
 
-    void turboOff(){
+    public void turboOff(){
         for(Car car : cars){
             if(car instanceof ITurbo){
                 ((ITurbo) car).setTurboOff();
@@ -128,7 +134,7 @@ public class CarController {
         }
     }
 
-    void liftBeds(){
+    public void liftBeds(){
         for(Car car : cars){
             if(car instanceof Flatbed){
                 ((Flatbed) car).raiseBed();
@@ -136,7 +142,7 @@ public class CarController {
         }
     }
 
-    void lowerBeds(){
+    public void lowerBeds(){
         for (Car car : cars){
             if(car instanceof Flatbed){
                 ((Flatbed) car).lowerBed();
@@ -144,13 +150,13 @@ public class CarController {
         }
     }
 
-    void startCars(){
+    public void startCars(){
         for(Car car : cars){
             car.startEngine();
         }
     }
 
-    void stopCars(){
+    public void stopCars(){
         for(Car car : cars){
             car.stopEngine();
         }

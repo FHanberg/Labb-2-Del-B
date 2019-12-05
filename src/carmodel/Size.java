@@ -1,3 +1,5 @@
+package carmodel;
+
 /**
  * Giant ~ Ferries and boats
  * Big ~ Tractors and trucks

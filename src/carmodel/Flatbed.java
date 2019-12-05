@@ -1,3 +1,5 @@
+package carmodel;
+
 /**
  * Basic framework for objects with a flatbed or similar
  */

@@ -1,3 +1,5 @@
+package carmodel;
+
 import java.awt.*;
 
 public abstract class Car extends MotorVehicle implements Transportable{

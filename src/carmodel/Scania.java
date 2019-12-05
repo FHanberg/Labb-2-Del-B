@@ -1,3 +1,5 @@
+package carmodel;
+
 import java.awt.*;
 
 public class Scania extends Car implements Flatbed{

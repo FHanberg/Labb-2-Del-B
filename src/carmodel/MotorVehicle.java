@@ -1,3 +1,5 @@
+package carmodel;
+
 import java.awt.*;
 
 /**
@@ -163,7 +165,7 @@ public abstract class MotorVehicle implements Movable, Engine {
      * @param amount Value between 0 - 1, more makes for greater retardation
      */
 
-    void brake(double amount){
+    public void brake(double amount){
         if(amount > 1){
             System.out.println("Brake amount is more than 1");
             return;

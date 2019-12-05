@@ -1,7 +1,9 @@
+package carmodel;
+
 import java.awt.*;
 
 /**
- * A Volvo240
+ * A carmodel.Volvo240
  */
 public class Volvo240 extends Car {
 
@@ -12,11 +14,11 @@ public class Volvo240 extends Car {
      * Stops the engine
      */
     public Volvo240(){
-        super(4, 100, Color.black, "Volvo240", Size.MEDIUM);
+        super(4, 100, Color.black, "carmodel.Volvo240", Size.MEDIUM);
     }
 
     public Volvo240(double xPos, double yPos){
-        super(4, 100, Color.black, "Volvo240", Size.MEDIUM, xPos, yPos);
+        super(4, 100, Color.black, "carmodel.Volvo240", Size.MEDIUM, xPos, yPos);
     }
 
     /**

@@ -1,3 +1,5 @@
+package carmodel;
+
 /**
  * Framework for an object that can be transported
  */

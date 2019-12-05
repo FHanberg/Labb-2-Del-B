@@ -1,3 +1,9 @@
+package carview;
+
+import carmodel.Saab95;
+import carmodel.Scania;
+import carmodel.Volvo240;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,7 +26,7 @@ public class DrawPanel extends JPanel{
 
     private Map<String, String> imageMap = new HashMap<>();
 
-    void updatePosAndImg(int x, int y, String carClass){
+    public void updatePosAndImg(int x, int y, String carClass){
         positions.add(new Point(x, y));
         imageDir.add(imageMap.get(carClass));
     }
@@ -40,11 +46,11 @@ public class DrawPanel extends JPanel{
         this.setBackground(Color.green);
         // Print an error message in case file is not found with a try/catch block
 
-            // You can remove the "pics" part if running outside of IntelliJ and
+            // You can remove the "carview.pics" part if running outside of IntelliJ and
             // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
+            // volvoImage = ImageIO.read(new File("carmodel.Volvo240.jpg"));
 
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
+            // Rememember to rightclick src New -> Package -> name: carview.pics -> MOVE *.jpg to carview.pics.
             // if you are starting in IntelliJ.
 
 

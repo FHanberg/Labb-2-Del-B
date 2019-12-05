@@ -1,3 +1,5 @@
+package carmodel;
+
 /**
  * Framework for moving objects
  */
