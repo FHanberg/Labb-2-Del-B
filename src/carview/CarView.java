@@ -43,7 +43,7 @@ class CarView extends JFrame implements ICarView {
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName , CarController cc){
+    public CarView(String frameName, CarController cc){
         this.carC = cc;
         initComponents(frameName);
     }
@@ -101,63 +101,63 @@ class CarView extends JFrame implements ICarView {
         stopButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
         this.add(stopButton);
         { //old listeners here
-        /* TODO: Implement listeners correctly
+        //TODO: Implement listeners correctly
         // This actionListener is for the gas button only
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.gas(gasAmount);
+                carC.gas(gasAmount);
             }
         });
 
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.brake(gasAmount);
+                carC.brake(gasAmount);
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.turboOn();
+                carC.turboOn();
             }
         });
 
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.turboOff();
+                carC.turboOff();
             }
         });
 
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.liftBeds();
+                carC.liftBeds();
             }
         });
 
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.lowerBeds();
+                carC.lowerBeds();
             }
         });
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.startCars();
+                carC.startCars();
             }
         });
 
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //carC.stopCars();
+                carC.stopCars();
             }
-        }); */ }
+        });  }
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
@@ -189,6 +189,6 @@ class CarView extends JFrame implements ICarView {
 
     @Override
     public void callForRepaint(){
-        repaint();
+        drawPanel.repaint();
     }
 }
