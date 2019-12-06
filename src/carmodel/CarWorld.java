@@ -7,7 +7,7 @@ public class CarWorld implements ICarWorld {
 
     public CarWorld(String[] inputValues) {
         for(String s : inputValues){
-            String[] splits = s.split(" ");
+            String[] splits = s.split("_");
             try {
                 addCar(splits[0], Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
             } catch (NumberFormatException e) {}
