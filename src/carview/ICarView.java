@@ -1,5 +1,7 @@
 package carview;
 
+import carcontroller.IListener;
+
 public interface ICarView {
     int getCarWidth();
     int getCarHeight();
@@ -7,4 +9,6 @@ public interface ICarView {
     int getWorldHeight();
     void updatePosAndImg(String[] ObjectName);
     void callForRepaint();
+    void addObserver(IListener observer);
+
 }

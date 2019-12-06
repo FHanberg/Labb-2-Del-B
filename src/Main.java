@@ -23,8 +23,9 @@ public class Main {
         main = new Main();
         main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab 10 30"});
         //main.view = new CarView("WWOO", main.carController);
-        main.view = CarViewFactory.createCarView("Car Simulator", main.carController);
+        main.view = CarViewFactory.createCarView("Car Simulator");
         main.carController = new CarController(main.view, main.carWorld);
+        main.view.addObserver(main.carController);
         main.timer.start();
     }
 

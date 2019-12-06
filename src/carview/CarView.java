@@ -1,6 +1,7 @@
 package carview;
 
 import carcontroller.CarController;
+import carcontroller.IListener;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -8,6 +9,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -21,7 +24,7 @@ class CarView extends JFrame implements ICarView {
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
+    private List<IListener> observers = new ArrayList<>();
 
     public DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -43,8 +46,7 @@ class CarView extends JFrame implements ICarView {
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName, CarController cc){
-        this.carC = cc;
+    public CarView(String frameName){
         initComponents(frameName);
     }
 
@@ -106,56 +108,56 @@ class CarView extends JFrame implements ICarView {
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
+                callObservers(0);
             }
         });
 
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
+                callObservers(1);
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOn();
+                callObservers(2);
             }
         });
 
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOff();
+                callObservers(3);
             }
         });
 
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftBeds();
+                callObservers(4);
             }
         });
 
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.lowerBeds();
+                callObservers(5);
             }
         });
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.startCars();
+                callObservers(6);
             }
         });
 
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stopCars();
+                callObservers(7);
             }
         });  }
 
@@ -200,5 +202,14 @@ class CarView extends JFrame implements ICarView {
     @Override
     public void callForRepaint(){
         drawPanel.repaint();
+    }
+
+    private void callObservers(int nr){
+        observers.forEach(observer -> observer.listenForMethod(nr));
+    }
+
+    @Override
+    public void addObserver(IListener observer) {
+        observers.add(observer);
     }
 }

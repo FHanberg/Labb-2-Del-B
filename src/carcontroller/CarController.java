@@ -14,7 +14,7 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements IListener{
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -157,4 +157,8 @@ public class CarController {
         }
     }
 
+    @Override
+    public void listenForMethod(int methodNumber) {
+
+    }
 }
