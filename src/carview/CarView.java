@@ -183,8 +183,18 @@ class CarView extends JFrame implements ICarView {
     }
 
     @Override
-    public void updatePosAndImg(int x, int y, String ObjectName) {
-        drawPanel.updatePosAndImg(x,y,ObjectName);
+    public int getWorldWidth(){
+        return drawPanel.getWidth();
+    }
+
+    @Override
+    public int getWorldHeight(){
+        return drawPanel.getHeight();
+    }
+
+    @Override
+    public void updatePosAndImg(String[] ObjectName) {
+        drawPanel.updatePosAndImg(ObjectName);
     }
 
     @Override

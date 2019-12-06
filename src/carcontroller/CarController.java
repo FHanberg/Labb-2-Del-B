@@ -1,8 +1,7 @@
 package carcontroller;
 
 import carmodel.*;
-import carview.CarView;
-import carview.DrawPanel;
+import carview.ICarView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,14 +24,21 @@ public class CarController {
     //private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    ICarView frame;
+    ICarWorld carWorld;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
 
     //methods:
 
-    public void update(){
+    public CarController(ICarView carView, ICarWorld carWorld){
+        frame = carView;
+        this.carWorld = carWorld;
+    }
 
+    public void update(){
+        frame.updatePosAndImg(carWorld.getCars());
+        frame.callForRepaint();
     }
 
 
@@ -60,7 +66,7 @@ public class CarController {
 
     private boolean collidingWithWall(double rotation, double x, double y){
         if(rotation < 90 || rotation > 270){
-            if(x + DrawPanel.CAR_WIDTH > frame.drawPanel.getWidth()){
+            if(x + frame.getCarWidth() > frame.getWorldWidth()){
                 return true;
             }
         }
@@ -75,7 +81,7 @@ public class CarController {
             }
         }
         if(rotation > 180){
-            if(y + DrawPanel.CAR_HEIGHT > frame.drawPanel.getHeight()){
+            if(y + frame.getCarHeight() > frame.getWorldHeight()){
                 return true;
             }
         }

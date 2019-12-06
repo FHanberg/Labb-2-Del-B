@@ -16,7 +16,7 @@ import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+class DrawPanel extends JPanel{
 
     public static int CAR_WIDTH = 100;
     public static int CAR_HEIGHT = 60;
@@ -26,9 +26,13 @@ public class DrawPanel extends JPanel{
 
     private Map<String, String> imageMap = new HashMap<>();
 
-    public void updatePosAndImg(int x, int y, String carClass){
-        positions.add(new Point(x, y));
-        imageDir.add(imageMap.get(carClass));
+    public void updatePosAndImg(String[] carClass){
+
+        for(int i = 0; i < carClass.length; i++) {
+            String[] temp = carClass[i].split("_");
+            imageDir.add(imageMap.get(temp[0]));
+            positions.add(new Point(Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
+        }
     }
 
     // Initializes the panel and reads the images

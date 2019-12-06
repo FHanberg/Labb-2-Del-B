@@ -9,4 +9,5 @@ public interface ICarWorld {
     void lowerBeds();
     void startCars();
     void stopCars();
+    String[] getCars();
 }
