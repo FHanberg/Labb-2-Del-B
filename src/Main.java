@@ -21,9 +21,11 @@ public class Main {
 
     public static void main(String[] args) {
         main = new Main();
-        main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab_10_30"});
         //main.view = new CarView("WWOO", main.carController);
         main.view = CarViewFactory.createCarView("Car Simulator");
+        main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab_10_30", "Volvo_0_100", "Scania_0_300"},
+                main.view.getWorldWidth(), main.view.getWorldHeight(),
+                main.view.getCarWidth(), main.view.getCarHeight());
         main.carController = new CarController(main.view, main.carWorld);
         main.view.addObserver(main.carController);
         main.timer.start();

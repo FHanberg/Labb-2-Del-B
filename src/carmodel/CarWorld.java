@@ -5,13 +5,56 @@ import java.util.ArrayList;
 public class CarWorld implements ICarWorld {
     ArrayList<Car> cars = new ArrayList<>();
 
-    public CarWorld(String[] inputValues) {
+    private int worldWidth;
+    private int worldHeight;
+    private int carWidth;
+    private int carHeight;
+
+    public CarWorld(String[] inputValues, int worldWidth, int worldHeight, int carWidth, int carHeight) {
+        this.carWidth = carWidth;
+        this.carHeight = carHeight;
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
         for(String s : inputValues){
             String[] splits = s.split("_");
             try {
                 addCar(splits[0], Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
             } catch (NumberFormatException e) {}
         }
+    }
+
+    private boolean collidingWithWall(double rotation, double x, double y){
+        if(rotation < 90 || rotation > 270){
+            if(x + carWidth > worldWidth){
+                return true;
+            }
+        }
+        if(rotation < 180){
+            if(y < 0){
+                return true;
+            }
+        }
+        if(rotation > 90 && rotation < 270){
+            if(x < 0){
+                return true;
+            }
+        }
+        if(rotation > 180){
+            if(y + carHeight > worldHeight){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void turnAroundProcedure(Car car){
+        car.stopEngine();
+
+        for (int i = 0; i <4 ; i++) {
+            car.turnLeft();
+        }
+        car.startEngine();
     }
 
     void addCar(String carClassName, double xPos, double yPos) {
@@ -112,6 +155,9 @@ public class CarWorld implements ICarWorld {
     public void updatePositions() {
         for(Car car : cars){
             car.move();
+            if(collidingWithWall(car.getDirection(), car.getX(), car.getY())){
+                turnAroundProcedure(car);
+            }
         }
     }
 }

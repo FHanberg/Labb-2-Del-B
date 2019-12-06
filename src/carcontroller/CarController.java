@@ -65,101 +65,73 @@ public class CarController implements IListener{
     * view to update its images. Change this method to your needs.
     * */
 
-    private boolean collidingWithWall(double rotation, double x, double y){
-        if(rotation < 90 || rotation > 270){
-            if(x + frame.getCarWidth() > frame.getWorldWidth()){
-                return true;
-            }
-        }
-        if(rotation < 180){
-            if(y < 0){
-                return true;
-            }
-        }
-        if(rotation > 90 && rotation < 270){
-            if(x < 0){
-                return true;
-            }
-        }
-        if(rotation > 180){
-            if(y + frame.getCarHeight() > frame.getWorldHeight()){
-                return true;
-            }
-        }
 
-        return false;
-    }
 
-    private void turnAroundProcedure(Car car){
-        car.stopEngine();
 
-        for (int i = 0; i <4 ; i++) {
-            car.turnLeft();
-        }
-        car.startEngine();
-    }
 
     // Calls the gas method for each car once
     public void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Car car : cars) {
-            car.gas(gas);
-        }
+        carWorld.gas(amount);
     }
 
     public void brake(int amount){
-        double brake = amount / 100.0;
-        for(Car car : cars){
-            car.brake(brake);
-        }
+        carWorld.brake(amount);
     }
 
     public void turboOn(){
-        for(Car car : cars){
-            if(car instanceof ITurbo){
-                ((ITurbo) car).setTurboOn();
-            }
-        }
+       carWorld.turboOn();
     }
 
     public void turboOff(){
-        for(Car car : cars){
-            if(car instanceof ITurbo){
-                ((ITurbo) car).setTurboOff();
-            }
-        }
+        carWorld.turboOff();
     }
 
     public void liftBeds(){
-        for(Car car : cars){
-            if(car instanceof Flatbed){
-                ((Flatbed) car).raiseBed();
-            }
-        }
+        carWorld.liftBeds();
     }
 
     public void lowerBeds(){
-        for (Car car : cars){
-            if(car instanceof Flatbed){
-                ((Flatbed) car).lowerBed();
-            }
-        }
+        carWorld.lowerBeds();
     }
 
     public void startCars(){
-        for(Car car : cars){
-            car.startEngine();
-        }
+        carWorld.startCars();
     }
 
     public void stopCars(){
-        for(Car car : cars){
-            car.stopEngine();
-        }
+        carWorld.stopCars();
     }
 
     @Override
     public void listenForMethod(int methodNumber) {
-
+        switch (methodNumber){
+            case 0:
+                gas(frame.getGasAmount());
+                break;
+            case 1:
+                brake(frame.getGasAmount());
+                break;
+            case 2:
+                turboOn();
+                break;
+            case 3:
+                turboOff();
+                break;
+            case 4:
+                liftBeds();
+                break;
+            case 5:
+                lowerBeds();
+                break;
+            case 6:
+                startCars();
+                break;
+            case 7:
+                stopCars();
+                break;
+            default:
+                System.out.println("This should never have happened");
+                break;
+        }
     }
 }

@@ -10,5 +10,5 @@ public interface ICarView {
     void updatePosAndImg(String[] ObjectName);
     void callForRepaint();
     void addObserver(IListener observer);
-
+    int getGasAmount();
 }

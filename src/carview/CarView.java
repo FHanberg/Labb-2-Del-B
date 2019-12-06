@@ -200,6 +200,11 @@ class CarView extends JFrame implements ICarView {
     }
 
     @Override
+    public int getGasAmount() {
+        return gasAmount;
+    }
+
+    @Override
     public void callForRepaint(){
         drawPanel.repaint();
     }
