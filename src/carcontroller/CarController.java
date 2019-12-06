@@ -37,6 +37,7 @@ public class CarController implements IListener{
     }
 
     public void update(){
+        carWorld.updatePositions();
         frame.updatePosAndImg(carWorld.getCars());
         frame.callForRepaint();
     }

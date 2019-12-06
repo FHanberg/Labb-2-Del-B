@@ -42,7 +42,7 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void brake(int amount){
+    public void brake(int amount) {
         double brake = amount / 100.0;
         for(Car car : cars){
             car.brake(brake);
@@ -50,7 +50,7 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void turboOn(){
+    public void turboOn() {
         for(Car car : cars){
             if(car instanceof ITurbo){
                 ((ITurbo) car).setTurboOn();
@@ -59,7 +59,7 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void turboOff(){
+    public void turboOff() {
         for(Car car : cars){
             if(car instanceof ITurbo){
                 ((ITurbo) car).setTurboOff();
@@ -68,7 +68,7 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void liftBeds(){
+    public void liftBeds() {
         for(Car car : cars){
             if(car instanceof Flatbed){
                 ((Flatbed) car).raiseBed();
@@ -77,7 +77,7 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void lowerBeds(){
+    public void lowerBeds() {
         for (Car car : cars){
             if(car instanceof Flatbed){
                 ((Flatbed) car).lowerBed();
@@ -86,25 +86,32 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void startCars(){
+    public void startCars() {
         for(Car car : cars){
             car.startEngine();
         }
     }
 
     @Override
-    public void stopCars(){
+    public void stopCars() {
         for(Car car : cars){
             car.stopEngine();
         }
     }
 
     @Override
-    public String[] getCars(){
+    public String[] getCars() {
         String[] returnArray = new String[cars.size()];
         for(int i = 0; i < cars.size(); i++){
             returnArray[i] = cars.get(i).getClass().toString() + "_" + (int)cars.get(i).getX() + "_" + (int)cars.get(i).getY();
         }
         return returnArray;
+    }
+
+    @Override
+    public void updatePositions() {
+        for(Car car : cars){
+            car.move();
+        }
     }
 }
