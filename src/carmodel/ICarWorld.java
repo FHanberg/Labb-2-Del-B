@@ -10,4 +10,5 @@ public interface ICarWorld {
     void startCars();
     void stopCars();
     String[] getCars();
+    void updatePositions();
 }

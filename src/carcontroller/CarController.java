@@ -37,6 +37,7 @@ public class CarController {
     }
 
     public void update(){
+        carWorld.updatePositions();
         frame.updatePosAndImg(carWorld.getCars());
         frame.callForRepaint();
     }
