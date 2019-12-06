@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         main = new Main();
-        main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab 10 30"});
+        main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab_10_30"});
         //main.view = new CarView("WWOO", main.carController);
         main.view = CarViewFactory.createCarView("Car Simulator");
         main.carController = new CarController(main.view, main.carWorld);
