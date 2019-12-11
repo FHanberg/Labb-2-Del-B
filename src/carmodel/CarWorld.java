@@ -57,7 +57,8 @@ public class CarWorld implements ICarWorld {
         car.startEngine();
     }
 
-    void addCar(String carClassName, double xPos, double yPos) {
+    @Override
+    public void addCar(String carClassName, double xPos, double yPos) {
         Car newCar = null;
         switch (carClassName) {
             case "Volvo":
