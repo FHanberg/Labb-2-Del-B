@@ -27,6 +27,7 @@ class CarView extends JFrame implements ICarView {
     private List<IListener> observers = new ArrayList<>();
 
     public DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    CarData carData = new CarData();
 
     JPanel controlPanel = new JPanel();
 
@@ -58,7 +59,9 @@ class CarView extends JFrame implements ICarView {
         this.setPreferredSize(new Dimension(X, Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
+        this.add(carData);
         this.add(drawPanel);
+
 
 
         SpinnerModel spinnerModel =
@@ -195,8 +198,12 @@ class CarView extends JFrame implements ICarView {
     }
 
     @Override
-    public void updatePosAndImg(String[] ObjectName) {
-        drawPanel.updatePosAndImg(ObjectName);
+    public void updatePosAndImg(String[] objectName) {
+        for (int i = 0; i < objectName.length; i++) {
+            String[] splits = objectName[i].split("_");
+            drawPanel.updatePosAndImg(splits[0], splits[1], splits[2]);
+            carData.updateText(splits[0], splits[3]);
+        }
     }
 
     @Override
@@ -207,6 +214,7 @@ class CarView extends JFrame implements ICarView {
     @Override
     public void callForRepaint(){
         drawPanel.repaint();
+        carData.displayText();
     }
 
     private void callObservers(int nr){

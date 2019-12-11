@@ -146,7 +146,8 @@ public class CarWorld implements ICarWorld {
     public String[] getCars() {
         String[] returnArray = new String[cars.size()];
         for(int i = 0; i < cars.size(); i++){
-            returnArray[i] = cars.get(i).getClass().toString() + "_" + (int)cars.get(i).getX() + "_" + (int)cars.get(i).getY();
+            returnArray[i] = cars.get(i).getClass().toString() + "_" + (int)cars.get(i).getX() + "_" + (int)cars.get(i).getY()
+            + "_" + (int)cars.get(i).getCurrentSpeed();
         }
         return returnArray;
     }

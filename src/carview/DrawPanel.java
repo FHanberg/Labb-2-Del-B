@@ -26,13 +26,9 @@ class DrawPanel extends JPanel{
 
     private Map<String, String> imageMap = new HashMap<>();
 
-    public void updatePosAndImg(String[] carClass){
-
-        for(int i = 0; i < carClass.length; i++) {
-            String[] temp = carClass[i].split("_");
-            imageDir.add(imageMap.get(temp[0]));
-            positions.add(new Point(Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-        }
+    public void updatePosAndImg(String carName, String carXPos, String carYPos){
+        imageDir.add(imageMap.get(carName));
+        positions.add(new Point(Integer.parseInt(carXPos), Integer.parseInt(carYPos)));
     }
 
     // Initializes the panel and reads the images
