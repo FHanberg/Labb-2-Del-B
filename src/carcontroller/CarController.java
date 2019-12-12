@@ -4,6 +4,9 @@ import carmodel.*;
 import carview.ICarView;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController implements IListener{
+public class CarController extends JPanel{
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -24,88 +27,138 @@ public class CarController implements IListener{
     //private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    ICarView frame;
     ICarWorld carWorld;
-    // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
-
     //methods:
 
-    public CarController(ICarView carView, ICarWorld carWorld){
-        frame = carView;
+    JPanel gasPanel = new JPanel();
+    JSpinner gasSpinner = new JSpinner();
+    int gasAmount = 0;
+    JLabel gasLabel = new JLabel("Amount of gas");
+
+    JPanel controlPanel = new JPanel();
+
+    JButton gasButton = new JButton("Gas");
+    JButton brakeButton = new JButton("Brake");
+    JButton turboOnButton = new JButton("Saab Turbo on");
+    private JButton turboOffButton = new JButton("Saab Turbo off");
+    private JButton liftBedButton = new JButton("Scania Lift Bed");
+    private JButton lowerBedButton = new JButton("Scania Lower Bed");
+
+    private JButton startButton = new JButton("Start all cars");
+    private JButton stopButton = new JButton("Stop all cars");
+
+    private int width;
+
+    public CarController(ICarWorld carWorld, int width){
         this.carWorld = carWorld;
-    }
-
-    public void update(){
-        carWorld.updatePositions();
-        frame.updatePosAndImg(carWorld.getCars());
-        frame.callForRepaint();
+        this.width = width;
+        initComponent();
     }
 
 
-    // Calls the gas method for each car once
-    public void gas(int amount) {
-        carWorld.gas(amount);
+    private void initComponent(){
+        SpinnerModel spinnerModel =
+                new SpinnerNumberModel(0, //initial value
+                        0, //min
+                        100, //max
+                        1);//step
+        gasSpinner = new JSpinner(spinnerModel);
+        gasSpinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                gasAmount = (int) ((JSpinner) e.getSource()).getValue();
+            }
+        });
+
+        gasPanel.setLayout(new BorderLayout());
+        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
+        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+
+        this.add(gasPanel);
+
+        controlPanel.setLayout(new GridLayout(2, 4));
+
+        controlPanel.add(gasButton, 0);
+        controlPanel.add(turboOnButton, 1);
+        controlPanel.add(liftBedButton, 2);
+        controlPanel.add(brakeButton, 3);
+        controlPanel.add(turboOffButton, 4);
+        controlPanel.add(lowerBedButton, 5);
+        controlPanel.setPreferredSize(new Dimension((width / 2) + 4, 200));
+        this.add(controlPanel);
+        controlPanel.setBackground(Color.CYAN);
+
+
+        startButton.setBackground(Color.blue);
+        startButton.setForeground(Color.green);
+        startButton.setPreferredSize(new Dimension(width / 5 - 15, 200));
+        this.add(startButton);
+
+
+        stopButton.setBackground(Color.red);
+        stopButton.setForeground(Color.black);
+        stopButton.setPreferredSize(new Dimension(width / 5 - 15, 200));
+        this.add(stopButton);
+        { //old listeners here
+            //TODO: Implement listeners correctly
+            // This actionListener is for the gas button only
+            gasButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   carWorld.gas(gasAmount);
+                }
+            });
+
+            brakeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.brake(gasAmount);
+                }
+            });
+
+            turboOnButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.turboOn();
+                }
+            });
+
+            turboOffButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.turboOff();
+                }
+            });
+
+            liftBedButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.liftBeds();
+                }
+            });
+
+            lowerBedButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.lowerBeds();
+                }
+            });
+
+            startButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.startCars();
+                }
+            });
+
+            stopButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    carWorld.stopCars();
+                }
+            });  }
+
+        // Make the frame pack all it's components by respecting the sizes if possible.
+
     }
 
-    public void brake(int amount){
-        carWorld.brake(amount);
-    }
-
-    public void turboOn(){
-       carWorld.turboOn();
-    }
-
-    public void turboOff(){
-        carWorld.turboOff();
-    }
-
-    public void liftBeds(){
-        carWorld.liftBeds();
-    }
-
-    public void lowerBeds(){
-        carWorld.lowerBeds();
-    }
-
-    public void startCars(){
-        carWorld.startCars();
-    }
-
-    public void stopCars(){
-        carWorld.stopCars();
-    }
-
-    @Override
-    public void listenForMethod(int methodNumber) {
-        switch (methodNumber){
-            case 0:
-                gas(frame.getGasAmount());
-                break;
-            case 1:
-                brake(frame.getGasAmount());
-                break;
-            case 2:
-                turboOn();
-                break;
-            case 3:
-                turboOff();
-                break;
-            case 4:
-                liftBeds();
-                break;
-            case 5:
-                lowerBeds();
-                break;
-            case 6:
-                startCars();
-                break;
-            case 7:
-                stopCars();
-                break;
-            default:
-                System.out.println("This should never have happened");
-                break;
-        }
-    }
 }

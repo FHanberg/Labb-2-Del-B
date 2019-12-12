@@ -1,6 +1,13 @@
 package carmodel;
 
+import Observers.IUpdateListener;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class CarWorld implements ICarWorld {
     ArrayList<Car> cars = new ArrayList<>();
@@ -9,12 +16,16 @@ public class CarWorld implements ICarWorld {
     private int worldHeight;
     private int carWidth;
     private int carHeight;
+    private List<IUpdateListener> updateListeners;
 
-    public CarWorld(String[] inputValues, int worldWidth, int worldHeight, int carWidth, int carHeight) {
+    public CarWorld(String[] inputValues, int worldWidth, int worldHeight, int carWidth, int carHeight,
+                    List<IUpdateListener> updateListeners) {
         this.carWidth = carWidth;
         this.carHeight = carHeight;
         this.worldWidth = worldWidth;
         this.worldHeight = worldHeight;
+
+        this.updateListeners = updateListeners;
         for(String s : inputValues){
             String[] splits = s.split("_");
             try {
@@ -162,4 +173,25 @@ public class CarWorld implements ICarWorld {
             }
         }
     }
+
+    @Override
+    public void startUpdateMethod(int delay) {
+        Timer timer = new Timer(delay, new TimerListener());
+        timer.start();
+    }
+
+    private void callUpdates(){
+        for(IUpdateListener listener : updateListeners){
+            listener.update(getCars());
+        }
+    }
+
+
+    private class TimerListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            updatePositions();
+            callUpdates();
+        }
+    }
+
 }

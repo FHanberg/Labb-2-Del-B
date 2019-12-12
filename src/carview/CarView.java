@@ -1,7 +1,7 @@
 package carview;
 
-import carcontroller.CarController;
-import carcontroller.IListener;
+import Observers.IUpdateListener;
+import carmodel.ICarWorld;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -19,210 +19,53 @@ import java.util.List;
  * each of it's components.
  **/
 
-class CarView extends JFrame implements ICarView {
+class CarView extends JPanel implements IUpdateListener, ICarView {
     private static final int X = 800;
     private static final int Y = 800;
 
-    // The controller member
-    private List<IListener> observers = new ArrayList<>();
-
-    public DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    public DrawPanel drawPanel = new DrawPanel(X, Y - 240);
     CarData carData = new CarData();
 
-    JPanel controlPanel = new JPanel();
-
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
-
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Scania Lower Bed");
-
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName){
-        initComponents(frameName);
-    }
-
-    // Sets everything in place and fits everything
-    // TODO: Take a good look and make sure you understand how these methods and components work
-    private void initComponents(String title) {
-
-        this.setTitle(title);
-        this.setPreferredSize(new Dimension(X, Y));
-        this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
+    public CarView(String frameName) {
         this.add(carData);
         this.add(drawPanel);
-
-
-
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner) e.getSource()).getValue();
-            }
-        });
-
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
-        this.add(gasPanel);
-
-        controlPanel.setLayout(new GridLayout(2, 4));
-
-        controlPanel.add(gasButton, 0);
-        controlPanel.add(turboOnButton, 1);
-        controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X / 2) + 4, 200));
-        this.add(controlPanel);
-        controlPanel.setBackground(Color.CYAN);
-
-
-        startButton.setBackground(Color.blue);
-        startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
-        this.add(startButton);
-
-
-        stopButton.setBackground(Color.red);
-        stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
-        this.add(stopButton);
-        { //old listeners here
-        //TODO: Implement listeners correctly
-        // This actionListener is for the gas button only
-        gasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(0);
-            }
-        });
-
-        brakeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(1);
-            }
-        });
-
-        turboOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(2);
-            }
-        });
-
-        turboOffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(3);
-            }
-        });
-
-        liftBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(4);
-            }
-        });
-
-        lowerBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(5);
-            }
-        });
-
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(6);
-            }
-        });
-
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callObservers(7);
-            }
-        });  }
-
-        // Make the frame pack all it's components by respecting the sizes if possible.
-        this.pack();
-
-        // Get the computer screen resolution
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        // Center the frame
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        // Make the frame visible
-        this.setVisible(true);
-        // Make sure the frame exits when "x" is pressed
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
-    public int getCarHeight(){
+    public JPanel getPanels() {
+        return this;
+    }
+
+    @Override
+    public int getCarHeight() {
         return DrawPanel.CAR_HEIGHT;
     }
 
     @Override
-    public int getCarWidth(){
+    public int getCarWidth() {
         return DrawPanel.CAR_WIDTH;
     }
 
     @Override
-    public int getWorldWidth(){
+    public int getWorldWidth() {
         return drawPanel.getWidth();
     }
 
     @Override
-    public int getWorldHeight(){
+    public int getWorldHeight() {
         return drawPanel.getHeight();
     }
 
     @Override
-    public void updatePosAndImg(String[] objectName) {
-        for (int i = 0; i < objectName.length; i++) {
-            String[] splits = objectName[i].split("_");
+    public void update(String[] data) {
+        for(String dat : data){
+            String[] splits = dat.split("_");
             drawPanel.updatePosAndImg(splits[0], splits[1], splits[2]);
             carData.updateText(splits[0], splits[3]);
         }
-    }
-
-    @Override
-    public int getGasAmount() {
-        return gasAmount;
-    }
-
-    @Override
-    public void callForRepaint(){
         drawPanel.repaint();
         carData.displayText();
-    }
-
-    private void callObservers(int nr){
-        observers.forEach(observer -> observer.listenForMethod(nr));
-    }
-
-    @Override
-    public void addObserver(IListener observer) {
-        observers.add(observer);
     }
 }

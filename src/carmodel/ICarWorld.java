@@ -12,4 +12,5 @@ public interface ICarWorld {
     String[] getCars();
     void updatePositions();
     void addCar(String carClassName, double xPos, double yPos);
+    void startUpdateMethod(int delay);
 }
