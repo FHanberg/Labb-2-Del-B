@@ -22,7 +22,7 @@ public class CarData extends JPanel {
         for (int i = 0; i < dataDisplay.size(); i++) {
             fullString = fullString + dataDisplay.get(i) + "<br>";
         }
-        fullString = fullString + "<body><html>";
+        fullString = fullString + "</body></html>";
         label.setText(fullString);
         this.repaint();
         dataDisplay.clear();
