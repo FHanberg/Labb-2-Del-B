@@ -25,8 +25,7 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         main = new Main();
-        //main.view = new CarView("WWOO", main.carController);
-        main.view = CarViewFactory.createCarView("Car Simulator");
+        main.view = CarViewFactory.createCarView();
 
         List<IUpdateListener> updateListeners= new ArrayList<>();
         updateListeners.add((IUpdateListener) main.view);

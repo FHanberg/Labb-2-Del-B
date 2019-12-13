@@ -44,16 +44,6 @@ class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-        // Print an error message in case file is not found with a try/catch block
-
-            // You can remove the "carview.pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("carmodel.Volvo240.jpg"));
-
-            // Rememember to rightclick src New -> Package -> name: carview.pics -> MOVE *.jpg to carview.pics.
-            // if you are starting in IntelliJ.
-
-
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself

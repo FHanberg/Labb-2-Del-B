@@ -1,7 +1,6 @@
 package carcontroller;
 
 import carmodel.*;
-import carview.ICarView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -9,26 +8,19 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-/*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
- */
+/**
+* This class represents the "Controller" part of the MVC pattern.
+* Its current responsibilities is to contain widgets that affect the model when interacted with.
+ **/
 
 public class CarController extends JPanel{
     // member fields:
 
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
-    // The timer is started with an listener (see below) that executes the statements
-    // each step between delays.
-    //private Timer timer = new Timer(delay, new TimerListener());
 
-    // The frame that represents this instance View of the MVC pattern
+
+    // The model that this controller interacts with
     ICarWorld carWorld;
-    //methods:
 
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
@@ -98,9 +90,7 @@ public class CarController extends JPanel{
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(width / 5 - 15, 200));
         this.add(stopButton);
-        { //old listeners here
-            //TODO: Implement listeners correctly
-            // This actionListener is for the gas button only
+        {
             gasButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -157,7 +147,6 @@ public class CarController extends JPanel{
                 }
             });  }
 
-        // Make the frame pack all it's components by respecting the sizes if possible.
 
     }
 

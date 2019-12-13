@@ -1,22 +1,14 @@
 package carview;
 
 import Observers.IUpdateListener;
-import carmodel.ICarWorld;
+
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * This class represents the full view of the MVC pattern of your car simulator.
- * It initializes with being center on the screen and attaching it's controller in it's state.
- * It communicates with the Controller by calling methods of it when an action fires of in
- * each of it's components.
+ * This class represents a "central hub" for the view of the MVC pattern of your car simulator.
+ * It initializes at the center of the screen.
+ * It does not communicate outward, but does receive data from the model (in the form of Strings)
  **/
 
 class CarView extends JPanel implements IUpdateListener, ICarView {
@@ -28,7 +20,7 @@ class CarView extends JPanel implements IUpdateListener, ICarView {
 
 
     // Constructor
-    CarView(String frameName) {
+    CarView() {
         this.add(carData);
         this.add(drawPanel);
     }
