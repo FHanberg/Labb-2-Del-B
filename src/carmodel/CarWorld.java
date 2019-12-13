@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class CarWorld implements ICarWorld {
@@ -18,7 +19,7 @@ public class CarWorld implements ICarWorld {
     private int carHeight;
     private List<IUpdateListener> updateListeners;
 
-    public CarWorld(String[] inputValues, int worldWidth, int worldHeight, int carWidth, int carHeight,
+    public CarWorld(int startAmount, int worldWidth, int worldHeight, int carWidth, int carHeight,
                     List<IUpdateListener> updateListeners) {
         this.carWidth = carWidth;
         this.carHeight = carHeight;
@@ -26,11 +27,8 @@ public class CarWorld implements ICarWorld {
         this.worldHeight = worldHeight;
 
         this.updateListeners = updateListeners;
-        for(String s : inputValues){
-            String[] splits = s.split("_");
-            try {
-                addCar(splits[0], Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
-            } catch (NumberFormatException e) {}
+        for (int i = 0; i < startAmount; i++) {
+            addRandomCar();
         }
     }
 
@@ -67,7 +65,39 @@ public class CarWorld implements ICarWorld {
     }
 
     @Override
-    public void addCar(String carClassName, double xPos, double yPos) {
+    public void addRandomCar() {
+        if(cars.size() >= 10){
+            return;
+        }
+        int random = new Random().nextInt(3);
+        String randomCar = "";
+        switch (random){
+            case 0:
+                randomCar = "Volvo";
+                break;
+            case 1:
+                randomCar = "Saab";
+                break;
+            case 2:
+                randomCar = "Scania";
+                break;
+            default:
+                System.out.println("This should not happen");
+                break;
+        }
+        addCar(randomCar, 0, (carHeight + 10) * cars.size() + 10);
+
+    }
+
+    @Override
+    public void removeCar() {
+        if(cars.size() == 0){
+            return;
+        }
+        cars.remove(cars.size() - 1);
+    }
+
+    private void addCar(String carClassName, double xPos, double yPos) {
         Car newCar = null;
         switch (carClassName) {
             case "Volvo":

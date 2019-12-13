@@ -11,6 +11,7 @@ public interface ICarWorld {
     void stopCars();
     String[] getCars();
     void updatePositions();
-    void addCar(String carClassName, double xPos, double yPos);
+    void addRandomCar();
+    void removeCar();
     void startUpdateMethod(int delay);
 }

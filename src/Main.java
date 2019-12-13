@@ -1,5 +1,6 @@
 import Observers.IUpdateListener;
 import carcontroller.CarController;
+import carcontroller.CarQuantityButtons;
 import carmodel.CarWorldFactory;
 import carmodel.ICarWorld;
 import carview.CarViewFactory;
@@ -17,6 +18,7 @@ public class Main extends JFrame {
     private static final int SCREEN_HEIGHT = 800;
 
     private CarController carController;
+    private CarQuantityButtons carQuantityButtons;
 
     private ICarView view;
     private ICarWorld carWorld;
@@ -30,10 +32,11 @@ public class Main extends JFrame {
         List<IUpdateListener> updateListeners= new ArrayList<>();
         updateListeners.add((IUpdateListener) main.view);
 
-        main.carWorld = CarWorldFactory.createCarWorld(new String[]{"Saab_10_30", "Volvo_0_100", "Scania_0_300"},
+        main.carWorld = CarWorldFactory.createCarWorld(3,
                 main.view.getWorldWidth(), main.view.getWorldHeight(),
                 main.view.getCarWidth(), main.view.getCarHeight(), updateListeners);
-        main.carController = new CarController(main.carWorld, SCREEN_WIDTH);
+        main.carController = new CarController(main.carWorld, SCREEN_WIDTH - 150);
+        main.carQuantityButtons = new CarQuantityButtons(main.carWorld, 100);
 
         main.setTitle(NAME);
         main.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -41,6 +44,7 @@ public class Main extends JFrame {
 
         main.add(main.view.getPanels());
         main.add(main.carController);
+        main.add(main.carQuantityButtons);
 
         main.pack();
 

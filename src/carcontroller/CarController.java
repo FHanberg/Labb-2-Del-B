@@ -20,25 +20,28 @@ public class CarController extends JPanel{
 
 
     // The model that this controller interacts with
-    ICarWorld carWorld;
+    private ICarWorld carWorld;
 
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
+    //spinner
+    private JPanel gasPanel = new JPanel();
+    private JSpinner gasSpinner = new JSpinner();
+    private int gasAmount = 0;
+    private JLabel gasLabel = new JLabel("Amount of gas");
 
-    JPanel controlPanel = new JPanel();
+    //The panel that all the buttons go onto
+    private JPanel controlPanel = new JPanel();
 
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    private JButton turboOffButton = new JButton("Saab Turbo off");
-    private JButton liftBedButton = new JButton("Scania Lift Bed");
-    private JButton lowerBedButton = new JButton("Scania Lower Bed");
-
+    //All the buttons
+    private JButton gasButton = new JButton("Gas");
+    private JButton brakeButton = new JButton("Brake");
+    private JButton turboOnButton = new JButton("Turbo on");
+    private JButton turboOffButton = new JButton("Turbo off");
+    private JButton liftBedButton = new JButton("Lift Bed");
+    private JButton lowerBedButton = new JButton("Lower Bed");
     private JButton startButton = new JButton("Start all cars");
     private JButton stopButton = new JButton("Stop all cars");
 
+    //designated width of all the buttons and
     private int width;
 
     public CarController(ICarWorld carWorld, int width){
