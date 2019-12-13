@@ -20,15 +20,15 @@ import java.util.List;
  **/
 
 class CarView extends JPanel implements IUpdateListener, ICarView {
-    private static final int X = 800;
-    private static final int Y = 800;
+    private static final int WORLD_WIDTH = 800;
+    private final int WORLD_HEIGHT = 800 - 240;
 
-    public DrawPanel drawPanel = new DrawPanel(X, Y - 240);
-    CarData carData = new CarData();
+    private DrawPanel drawPanel = new DrawPanel(WORLD_WIDTH, WORLD_HEIGHT);
+    private CarData carData = new CarData();
 
 
     // Constructor
-    public CarView(String frameName) {
+    CarView(String frameName) {
         this.add(carData);
         this.add(drawPanel);
     }
@@ -50,12 +50,12 @@ class CarView extends JPanel implements IUpdateListener, ICarView {
 
     @Override
     public int getWorldWidth() {
-        return drawPanel.getWidth();
+        return WORLD_WIDTH;
     }
 
     @Override
     public int getWorldHeight() {
-        return drawPanel.getHeight();
+        return WORLD_HEIGHT;
     }
 
     @Override

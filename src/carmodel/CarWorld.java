@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class CarWorld implements ICarWorld {
-    ArrayList<Car> cars = new ArrayList<>();
+    private ArrayList<Car> cars = new ArrayList<>();
 
     private int worldWidth;
     private int worldHeight;
@@ -51,9 +51,7 @@ public class CarWorld implements ICarWorld {
             }
         }
         if(rotation > 180){
-            if(y + carHeight > worldHeight){
-                return true;
-            }
+            return y + carHeight > worldHeight;
         }
 
         return false;
@@ -154,6 +152,10 @@ public class CarWorld implements ICarWorld {
         }
     }
 
+    /**
+     * getCars returns the data about the cars that is necessary for the view in form of a string array
+     * @return a string with the car class first and then xpos and then ypos, and then the current speed
+     */
     @Override
     public String[] getCars() {
         String[] returnArray = new String[cars.size()];
